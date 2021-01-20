@@ -36,7 +36,6 @@ class Auth extends CI_Controller
         $user = $this->db->get_where('user', ['email' => $email])->row_array();
 
         if ($user) {
-            //asdasd
             if ($user['is_active'] == 1) {
                 if (password_verify($password, $user['password'])) {
                     $data = [
@@ -96,7 +95,7 @@ class Auth extends CI_Controller
             ];
 
             $this->db->insert('user', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> selamat anda telah berhasil dibuat, silahkan login!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> selamat anda telah berhasil membuat akun baru, silahkan login!</div>');
             redirect('auth');
         }
     }
@@ -109,10 +108,5 @@ class Auth extends CI_Controller
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Anda berhasil logout!</div>');
         redirect('auth');
-    }
-
-    public function blocked()
-    {
-        echo 'salah';
     }
 }

@@ -22,9 +22,12 @@
                                         <th scope="col">Nama</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Foto</th>
+                                        <th scope="col">Ubah</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     <?php $i = 1; ?>
                                     <?php foreach ($userMenu as $m) : ?>
                                         <tr>
@@ -33,7 +36,6 @@
                                             <td><?= $m['email']; ?></td>
                                             <td><?= $m['image']; ?></td>
                                             <td>
-                                                <a href="" class="badge badge-success">edit</a>
                                                 <a href="" class="badge badge-danger">delete</a>
                                             </td>
                                         </tr>

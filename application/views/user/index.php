@@ -4,7 +4,13 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
-                    <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <?= $this->session->flashdata('message') ?>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3 col-lg-6 border-left-dark shadow h-100 py-2">
                         <div class="row no-gutters">
                             <div class="col-md-4">
                                 <img src="<?= base_url('assets/img/profile/') . $user['image'] ?>" class="card-img">
@@ -12,7 +18,10 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title"><?= $user['name']; ?></h5>
+                                    <p class="card-text"><?= $user['nim']; ?></p>
+                                    <p class="card-text"><?= $user['kelas']; ?></p>
                                     <p class="card-text"><?= $user['email']; ?></p>
+                                    <p class="card-text"><?= $user['no_telfon']; ?></p>
                                     <p class="card-text"><small class="text-muted">Awal login pada <?= date('d F Y', $user['date_created']) ?></small></p>
                                 </div>
                             </div>

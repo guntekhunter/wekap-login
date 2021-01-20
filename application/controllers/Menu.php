@@ -16,8 +16,7 @@ class Menu extends CI_Controller
         $this->session->userdata('email')])->row_array();
 
         $data['name'] = $this->db->get('user')->result_array();
-
-        $this->form_validation->set_rules('name', 'name', 'required');
+        $data['wadaw'] = $this->db->get('user')->result_array();
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -26,18 +25,24 @@ class Menu extends CI_Controller
             $this->load->view('menu/index', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->db->insert('user', ['name' => $this->input->post('name')]);
+            $name = $this->input->post('name');
+            $id_anggota = $this->input->post('id_anggota');
+
+            $this->db->set('id_anggota', $id_anggota);
+            $this->db->where('name', $name);
+            $this->db->update('user');
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Menu baru berhasil ditambahkan</div>');
             redirect('name');
         }
     }
     public function submenu()
     {
-        $data['title'] = 'Submenu Management';
+        $data['title'] = 'Pengguna web';
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
 
         $data['userMenu'] = $this->db->get('user')->result_array();
+
 
         $this->form_validation->set_rules('name', 'Name', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
@@ -51,11 +56,14 @@ class Menu extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $data = [
-                'name' => $this->input->post('name'),
-                'email' => $this->input->post('email'),
+                'name' => htmlspecialchars($this->input->post('name', true)),
+                'email' => htmlspecialchars($this->input->post('email', true)),
                 'image' => 'default.jpg',
-                'password' => $this->input->post('password'),
-                'role_id' => '1',
+                'password' => password_hash(
+                    $this->input->post('password1'),
+                    PASSWORD_DEFAULT
+                ),
+                'role_id' => 2,
                 'is_active' => $this->input->post('is_active'),
                 'date_created' => time()
             ];
